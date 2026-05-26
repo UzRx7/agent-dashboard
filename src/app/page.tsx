@@ -200,13 +200,12 @@ export default function MissionControlDashboard() {
         setAgents(data.agents);
       }
     } catch (e) {
-      console.warn("Using fallback mock status for worker nodes.");
-      // Graceful degradation fallback
+      console.warn("API status request failed. Setting all nodes to offline.");
       setAgents({
-        claude: { id: "claude", name: "Claude CEO", role: "CEO Intelligence Layer", model: "Claude 3.5 Sonnet", online: true, latency: 110, endpoint: "https://api.anthropic.com", capabilities: ["Strategic planning", "Task decomposition"] },
-        openclaw: { id: "openclaw", name: "OpenClaw Router", role: "Task Gateway Router", model: "FastAPI Routing Harness", online: true, latency: 12, endpoint: "http://localhost:8000", capabilities: ["Task distribution"] },
-        hermes1: { id: "hermes1", name: "Hermes-1", role: "Content & Research Worker", model: "Llama-3-Hermes-8B", online: true, latency: 15, endpoint: "http://localhost:8001", capabilities: ["Script translation"] },
-        hermes2: { id: "hermes2", name: "Hermes-2", role: "Technical & DevOps Worker", model: "Qwen-2.5-Coder-Hermes-14B", online: true, latency: 14, endpoint: "http://localhost:8002", capabilities: ["Git synchronization"] }
+        claude: { id: "claude", name: "Claude CEO", role: "CEO Intelligence Layer", model: "Claude 3.5 Sonnet", online: false, latency: 0, endpoint: "https://api.anthropic.com", capabilities: ["Strategic planning", "Task decomposition"] },
+        openclaw: { id: "openclaw", name: "OpenClaw Router", role: "Task Gateway Router", model: "FastAPI Routing Harness", online: false, latency: 0, endpoint: "http://localhost:8000", capabilities: ["Task distribution"] },
+        hermes1: { id: "hermes1", name: "Hermes-1", role: "Content & Research Worker", model: "Llama-3-Hermes-8B", online: false, latency: 0, endpoint: "http://localhost:8001", capabilities: ["Script translation"] },
+        hermes2: { id: "hermes2", name: "Hermes-2", role: "Technical & DevOps Worker", model: "Qwen-2.5-Coder-Hermes-14B", online: false, latency: 0, endpoint: "http://localhost:8002", capabilities: ["Git synchronization"] }
       });
     } finally {
       setSystemCheckRunning(false);
