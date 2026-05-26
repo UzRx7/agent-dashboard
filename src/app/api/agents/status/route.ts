@@ -4,9 +4,9 @@ import { NextResponse } from "next/server";
 
 // Standard network ping helper
 async function checkEndpoint(url: string, timeoutMs: number = 1500): Promise<{ online: boolean; latency: number }> {
-    if (!url || url.includes("localhost") || url.includes("127.0.0.1") || url.includes("your-hermes")) {
-        // Fallback for missing or unconfigured environment URLs to prevent long hangs
-        return { online: true, latency: 15 + Math.floor(Math.random() * 25) };
+    if (!url || url.trim() === "" || url.includes("your-hermes") || url.includes("localhost") || url.includes("127.0.0.1")) {
+        // Return real offline status if unconfigured, placeholder, or localhost (which is unreachable from the cloud)
+        return { online: false, latency: 0 };
     }
     
     const start = Date.now();
